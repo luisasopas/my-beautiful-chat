@@ -1,37 +1,10 @@
 
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
 import appConfig from '../config.json'
+import React from 'react';
+import { useRouter } from 'next/router'
 
-function GlobalStyle() {
-    return (
-      <style global jsx>{`
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-          list-style: none;
-        }
-        body {
-          font-family: 'Open Sans', sans-serif;
-        }
-        /* App fit Height */ 
-        html, body, #__next {
-          min-height: 100vh;
-          display: flex;
-          flex: 1;
-        }
-        #__next {
-          flex: 1;
-        }
-        #__next > * {
-          flex: 1;
-        }
-        /* ./App fit Height */ 
-      `}</style>
-    );
-  }
-
-function Titulo(props) {
+function Title(props) {
     console.log(props);
     const Tag = props.tag || 'h1';
     return(
@@ -63,11 +36,13 @@ function HomePage() {
   export default HomePage
 */}
 export default function PaginaInicial() {
-    const username = 'luisasopas';
+   //the variable and who I shoul warn when this variable changes
+    const [username, setUsername] = React.useState("");
+    const roteamento = useRouter();
+    setUsername
   
     return (
       <>
-        <GlobalStyle />
         <Box
           styleSheet={{
             display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -94,17 +69,36 @@ export default function PaginaInicial() {
             {/* Formulário */}
             <Box
               as="form"
+              onSubmit={(event) =>{
+                event.preventDefault();
+                console.log('someone submited the form');
+                //Next.js routes it to us
+                //window.location.href='/chat'
+                roteamento.push('/chat')
+              }}
               styleSheet={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
                 width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
               }}
             >
-              <Titulo tag="h2">Welcome! Insert your key and open your door.</Titulo>
+              <Title tag="h2">Welcome!</Title>
+              <Title tag="h2">Insert your key and open your door</Title>
               <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
                 {appConfig.name}
               </Text>
-  
+             
               <TextField
+                value={username}
+                onChange={(event) => {
+                console.log('the user typed: ' + event.target.value);
+                //Where is the value?
+                if (event.target.value.length >= 2){
+                const valor = event.target.value;
+                //Change the value with React
+                }
+                setUsername(valor);
+                
+              }}
                 fullWidth
                 textFieldColors={{
                   neutral: {
@@ -114,10 +108,11 @@ export default function PaginaInicial() {
                     backgroundColor: appConfig.theme.colors.neutrals[800],
                   },
                 }}
-              />
+              /> 
+            
               <Button
                 type='submit'
-                label='Entrar'
+                label='Login'
                 fullWidth
                 buttonColors={{
                   contrastColor: appConfig.theme.colors.neutrals["000"],
