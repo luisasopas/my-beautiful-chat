@@ -26,7 +26,7 @@ export default function ChatPage() {
 
     }, []);
     
-    function handleNovaMensagem(newMessage) {
+    function handleNewMessage(newMessage) {
         const message = {
             //id: listaDeMensagens.length + 1, - created automatically by supabase
             de: 'luisasopas',
@@ -113,7 +113,7 @@ export default function ChatPage() {
                                 const valor = evento.key;
                                 if (valor === 'Enter') {
                                     evento.preventDefault();
-                                    handleNovaMensagem(message);
+                                    handleNewMessage(message);
                             }
                         }}
                             placeholder="Insira sua mensagem aqui..."
