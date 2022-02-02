@@ -38,8 +38,7 @@ function HomePage() {
 export default function PaginaInicial() {
    //the variable and who I shoul warn when this variable changes
     const [username, setUsername] = React.useState("");
-    const roteamento = useRouter();
-    setUsername
+    const routing = useRouter();
   
     return (
       <>
@@ -74,7 +73,7 @@ export default function PaginaInicial() {
                 console.log('someone submited the form');
                 //Next.js routes it to us
                 //window.location.href='/chat'
-                roteamento.push('/chat')
+                routing.push(`/chat?username=${username}`);
               }}
               styleSheet={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
